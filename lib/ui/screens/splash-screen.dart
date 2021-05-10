@@ -33,10 +33,15 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           children: [
             Spacer(),
-            CommonWidgets.masker(Icon(
-              Icons.location_on,
-              size: 80,
-            )),
+            CircleAvatar(
+                radius: 60,
+                backgroundColor: Colors.white,
+                child: Center(
+                  child: CommonWidgets.masker(Icon(
+                    Icons.location_on,
+                    size: 60,
+                  )),
+                )),
             SizedBox(
               height: 30,
             ),

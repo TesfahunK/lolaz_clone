@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lolaz_clone/ui/widgets/hot-or-not-item.dart';
 import 'package:lolaz_clone/ui/widgets/match-tab-item.dart';
 import 'package:lolaz_clone/utils/ui/common.dart';
 import 'package:lolaz_clone/utils/ui/widgets.dart';
@@ -63,7 +64,7 @@ class _TheHomeScreenState extends State<TheHomeScreen>
             ),
           ),
           _MatchesScreen(),
-          Container()
+          _HotOrNot()
         ]),
       ),
     );
@@ -92,5 +93,52 @@ class _MatchesScreen extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+class _HotOrNot extends StatefulWidget {
+  @override
+  __HotOrNotState createState() => __HotOrNotState();
+}
+
+class __HotOrNotState extends State<_HotOrNot> {
+  List<Color> _colors = [
+    Colors.red,
+    Colors.green,
+    Colors.pink,
+    Colors.purple,
+    Colors.amber,
+    Colors.lime,
+    Colors.blueGrey,
+    Colors.orange,
+    Colors.indigo,
+  ];
+
+  PageController _pageController;
+
+  @override
+  void initState() {
+    _pageController = new PageController(initialPage: 0, keepPage: true);
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PageView.builder(
+        key: PageStorageKey("pageQey"),
+        physics: NeverScrollableScrollPhysics(),
+        controller: _pageController,
+        itemCount: _colors.length,
+        itemBuilder: (ctx, index) {
+          return HotOrNotItem(
+            onButton: () {
+              _pageController.nextPage(
+                  duration: Duration(milliseconds: 300), curve: Curves.ease);
+            },
+            index: index,
+            color: _colors[index],
+          );
+        });
   }
 }
